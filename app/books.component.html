@@ -1,0 +1,31 @@
+<h2>Books</h2>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Issued</th>
+    <th>Region</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)">
+    <td>{{book.id}}</td>
+    <td>{{book.title}}</td>
+    <td>{{book.author}}</td>
+    <td>{{book.date}}</td>
+    <td>{{book.description}}</td>
+    <td><input type="checkbox" [(ngModel)]="book.issued" /></td>
+    <td>{{book.region}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="selectedBook">
+  <h4>
+    {{selectedBook.title}}, {{selectedBook.author}}
+  </h4>
+</div>

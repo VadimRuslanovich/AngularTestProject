@@ -1,0 +1,7 @@
+{
+  "books": [
+    { "id": 11, "title": "C#", "author": "Petrov", "date": "01.02.2000", "description": "", "issued": true, "region": "4354343" },
+    { "id": 12, "title": "Js", "author": "Ivanov", "date": "10.05.2008", "description": "", "issued": false, "region": "43523" },
+    { "id": 13, "title": "Java", "author": "Sidorov", "date": "15.10.1999", "description": "", "issued": true, "region": "12312" }
+  ]
+}
