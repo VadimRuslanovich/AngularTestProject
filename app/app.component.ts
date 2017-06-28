@@ -3,14 +3,20 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'my-app',
   template: `
-    <h1>{{title}}</h1>
-    <nav>
-      <a routerLink="/books" routerLinkActive="active">Books</a>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" routeLink="/">{{title}}</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li routerLinkActive="active"><a routerLink="books">Books</a></li>
+        </ul>
+      </div>
     </nav>
-    <router-outlet></router-outlet>
-  `,
+    <router-outlet></router-outlet>`,
   styleUrls: ['./app/app.component.css'],
 })
+
 export class AppComponent {
   title = 'Library';
 }

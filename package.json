@@ -1,5 +1,5 @@
 {
-  "name": "AngularTestProject",
+  "name": "test",
   "version": "0.0.1",
   "scripts": {
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
