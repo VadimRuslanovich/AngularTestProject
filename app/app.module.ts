@@ -4,6 +4,7 @@ import { FormsModule }    from '@angular/forms';
 import { HttpModule }   from '@angular/http';
 
 import { AppComponent }         from './app.component';
+import { HomeComponent }      from './home.component';
 import { BooksComponent }      from './books.component';
 import { BookDetailsComponent }      from './book-details.component';
 import { BookService }          from './book.service';
@@ -19,6 +20,7 @@ import { AppRoutingModule }     from './app-routing.module';
     ],
     declarations: [
         AppComponent,
+        HomeComponent,
         BooksComponent,
         BookDetailsComponent
     ],

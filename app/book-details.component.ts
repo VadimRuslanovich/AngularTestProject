@@ -14,6 +14,7 @@ import { BookService } from './book.service';
 
 export class BookDetailsComponent implements OnInit {
     book: Book;
+    dateNow = new Date();
 
     constructor(
         private bookService: BookService,

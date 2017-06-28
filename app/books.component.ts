@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Response } from "@angular/http";
 import { NgForm } from '@angular/forms';
 
@@ -12,28 +12,30 @@ import { BookService } from './book.service';
   styleUrls: [ './app/books.component.css' ]
 })
 export class BooksComponent implements OnInit {
-    books: Book[] = [];
-    selectedBook: Book;
+    books:Book[] = [];
+    selectedBook:Book;
     dateNow = new Date();
-    selectedRegion: number = 2;
+    selectedRegion:number = 2;
 
-    constructor(private router: Router,
-                private bookService: BookService) {
+    constructor(private router:Router,
+                private route: ActivatedRoute,
+                private bookService:BookService) {
     }
 
-    ngOnInit(): void {
+    ngOnInit():void {
         this.getBooks();
     }
 
-    getBooks(): void {
-        this.bookService.getBooks().subscribe((data: Response) => this.books = data.json());
+    getBooks():void {
+        this.route.params
+            .switchMap((params: Params) => this.bookService.getBooksWithPagination(+params['page'] || 1, 5))
+            .subscribe((data:Response) => this.books = data.json());
     }
 
-    add(form: NgForm) {
+    add(form:NgForm) {
         let book = new Book(form.controls['title'].value, form.controls['author'].value, form.controls['date'].value,
-            form.controls['descrption'].value, form.controls['issued'].value,
-            form.controls.hasOwnProperty('region_one') ? form.controls['region_one'].value :
-                form.controls['region_two_1'].value + form.controls['region_two_2'].value);
+            form.controls['description'].value, form.controls['issued'].value,
+            form.controls.hasOwnProperty('region_one') ? form.controls['region_one'].value : form.controls['region_two_1'].value + form.controls['region_two_2'].value);
         this.bookService.createBook(book)
             .subscribe(res => {
                 this.books.push(res.json() as Book);
@@ -41,20 +43,17 @@ export class BooksComponent implements OnInit {
             }, error => this.bookService.handleError(error));
     }
 
-    /*add(book: Book) {
-     this.bookService.createBook(book);
-     this.books.push(book);
-     this.selectedBook = null;
-     }*/
-
-    delete(book: Book) {
-        this.bookService.deleteBook(book.id)
-            .subscribe(() => {
-                this.books = this.books.filter(h => h !== book);
-                if (this.selectedBook === book) {
-                    this.selectedBook = null;
-                }
-            }, error => this.bookService.handleError(error));
+    delete(book:Book) {
+        var confirmation = confirm("Really delete?");
+        if (confirmation) {
+            this.bookService.deleteBook(book.id)
+                .subscribe(() => {
+                    this.books = this.books.filter(h => h !== book);
+                    if (this.selectedBook === book) {
+                        this.selectedBook = null;
+                    }
+                }, error => this.bookService.handleError(error));
+        }
     }
 
     onSelect(book: Book): void {

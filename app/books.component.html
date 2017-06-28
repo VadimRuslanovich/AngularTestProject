@@ -1,6 +1,6 @@
 <h2>Books</h2>
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Book</button>
+<button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal" (click)="myForm.reset()">Add Book</button>
 
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -13,20 +13,20 @@
         <form #myForm="ngForm" novalidate>
           <div class="form-group">
             <label>Title:</label>
-            <input class="form-control" name="title" ngModel required #title />
+            <input class="form-control" name="title" ngModel #title required/>
           </div>
           <div class="form-group">
             <label>Author:</label>
-            <input class="form-control" name="author" ngModel #author />
+            <input class="form-control" name="author" ngModel #author required/>
           </div>
           <div class="form-group">
             <label>Date:</label>
             <input type="date" class="form-control" value="{{ dateNow | date: 'yyyy-MM-dd'}}"
-                   max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="date" ngModel #date />
+                   max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="date" ngModel #date required/>
           </div>
           <div class="form-group">
             <label>Description:</label>
-            <input class="form-control" name="description" ngModel #descrption />
+            <input class="form-control" name="description" ngModel #description />
           </div>
           <div class="form-group">
             <label>Issued:</label>
@@ -47,9 +47,7 @@
               <input class="form-control" name="region_two_2" ngModel #region_two_2 />
             </ng-template>
           </div>
-          <button class="btn btn-primary" [disabled]="myForm.invalid" (click)="add(ngForm);
-    title.value='';author.value='';date.value='';descrption.value='';issued.value='false';
-    region_one.value='';region_two_1.value='';region_two_2.value=''" data-dismiss="modal">
+          <button class="btn btn-primary" [disabled]="myForm.invalid" (click)="add(myForm);" data-dismiss="modal">
             Add
           </button>
         </form>
@@ -72,22 +70,22 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)">
+  <tr *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)" (dblclick)="gotoDetail()">
     <td>{{book.id}}</td>
     <td>{{book.title}}</td>
     <td>{{book.author}}</td>
     <td>{{book.date}}</td>
     <td>{{book.description}}</td>
-    <td><input type="checkbox" [(ngModel)]="book.issued" /></td>
+    <td><input type="checkbox" [(ngModel)]="book.issued" [disabled]="true" /></td>
     <td>{{book.region}}</td>
     <td><button class="delete" (click)="delete(book); $event.stopPropagation()">x</button></td>
   </tr>
   </tbody>
+  <tfoot>
+    <ul class="pagination">
+      <li><a routerLink="/books/1">1</a></li>
+      <li><a routerLink="/books/2">2</a></li>
+      <li><a routerLink="/books/3">3</a></li>
+    </ul>
+  </tfoot>
 </table>
-
-<div *ngIf="selectedBook">
-  <h4>
-    {{selectedBook.title}}, {{selectedBook.author}}
-  </h4>
-  <button (click)="gotoDetail()">View Details</button>
-</div>

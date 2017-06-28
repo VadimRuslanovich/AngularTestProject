@@ -19,6 +19,10 @@ export class BookService {
     return this.http.get(apiUrl);
   }
 
+  getBooksWithPagination(page: number = 1, limit: number = 5) {
+    return this.http.get(`${apiUrl}?_page=${page}&_limit=${limit}`);
+  }
+
   getBook(id: number) {
     return this.http.get(`${apiUrl}/${id}`);
   }

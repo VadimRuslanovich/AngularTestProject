@@ -1,7 +1,85 @@
 {
   "books": [
-    { "id": 11, "title": "C#", "author": "Petrov", "date": "01.02.2000", "description": "", "issued": true, "region": "4354343" },
-    { "id": 12, "title": "Js", "author": "Ivanov", "date": "10.05.2008", "description": "", "issued": false, "region": "43523" },
-    { "id": 13, "title": "Java", "author": "Sidorov", "date": "15.10.1999", "description": "", "issued": true, "region": "12312" }
+    {
+      "id": 11,
+      "title": "C#",
+      "author": "Petrov",
+      "date": "1999-06-02",
+      "description": "about C#",
+      "issued": false,
+      "region": "4354343"
+    },
+    {
+      "id": 12,
+      "title": "Js",
+      "author": "Ivanov",
+      "date": "2001-01-01",
+      "description": "",
+      "issued": false,
+      "region": "43523"
+    },
+    {
+      "id": 13,
+      "title": "Java",
+      "author": "Sidorov",
+      "date": "2005-05-05",
+      "description": "",
+      "issued": true,
+      "region": "12312"
+    },
+    {
+      "title": "Best book",
+      "author": "Best author",
+      "date": "2010-10-10",
+      "description": "best of the best",
+      "issued": "",
+      "region": "123321",
+      "id": 14
+    },
+    {
+      "title": "gsdfg",
+      "author": "sdfgdfg",
+      "date": "2017-06-09",
+      "description": null,
+      "issued": null,
+      "region": 0,
+      "id": 15
+    },
+    {
+      "title": "11111111",
+      "author": "1111111111",
+      "date": "2017-06-09",
+      "description": "111111111111",
+      "issued": null,
+      "region": 0,
+      "id": 16
+    },
+    {
+      "title": "1111111111",
+      "author": "11111111111",
+      "date": "2017-06-09",
+      "description": "111111111111",
+      "issued": null,
+      "region": 0,
+      "id": 17
+    },
+    {
+      "title": "111111111",
+      "author": "111111111111",
+      "date": "2017-06-02",
+      "description": "11111111111",
+      "issued": null,
+      "region": 0,
+      "id": 18
+    },
+    {
+      "title": "ertert",
+      "author": "ertewrt",
+      "date": "2017-06-01",
+      "description": "etewet",
+      "issued": null,
+      "region": "eteerte",
+      "id": 19
+    }
   ]
 }
