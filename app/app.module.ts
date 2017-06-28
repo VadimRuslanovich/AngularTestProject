@@ -8,6 +8,7 @@ import { HomeComponent }      from './home.component';
 import { BooksComponent }      from './books.component';
 import { BookDetailsComponent }      from './book-details.component';
 import { BookService }          from './book.service';
+import { PagerService }    from './pager.service'
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -24,7 +25,7 @@ import { AppRoutingModule }     from './app-routing.module';
         BooksComponent,
         BookDetailsComponent
     ],
-    providers: [BookService],
+    providers: [BookService, PagerService],
     bootstrap: [AppComponent]
 })
 

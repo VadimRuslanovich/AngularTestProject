@@ -9,7 +9,7 @@ import { BookService } from './book.service';
 @Component({
     selector: 'book-details',
     templateUrl: './app/book-details.component.html',
-    styleUrls: ['./app/book-details.component.css']
+    styleUrls: ['./app/styles/css/book-details.component.css']
 })
 
 export class BookDetailsComponent implements OnInit {

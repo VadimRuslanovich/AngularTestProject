@@ -37,8 +37,8 @@
       "id": 14
     },
     {
-      "title": "gsdfg",
-      "author": "sdfgdfg",
+      "title": "Ololo",
+      "author": "Ivanov",
       "date": "2017-06-09",
       "description": null,
       "issued": null,
@@ -46,8 +46,8 @@
       "id": 15
     },
     {
-      "title": "11111111",
-      "author": "1111111111",
+      "title": "Test",
+      "author": "Ivanov",
       "date": "2017-06-09",
       "description": "111111111111",
       "issued": null,
@@ -55,8 +55,8 @@
       "id": 16
     },
     {
-      "title": "1111111111",
-      "author": "11111111111",
+      "title": "C# для чайников",
+      "author": "Petrov",
       "date": "2017-06-09",
       "description": "111111111111",
       "issued": null,
@@ -64,22 +64,13 @@
       "id": 17
     },
     {
-      "title": "111111111",
-      "author": "111111111111",
+      "title": "AngularJS 4",
+      "author": "T",
       "date": "2017-06-02",
       "description": "11111111111",
       "issued": null,
       "region": 0,
       "id": 18
-    },
-    {
-      "title": "ertert",
-      "author": "ertewrt",
-      "date": "2017-06-01",
-      "description": "etewet",
-      "issued": null,
-      "region": "eteerte",
-      "id": 19
     }
   ]
 }

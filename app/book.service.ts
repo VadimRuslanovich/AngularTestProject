@@ -40,6 +40,21 @@ export class BookService {
     return this.http.delete(`${apiUrl}/${id}`, {headers: this.headers});
   }
 
+  filterBooks(properties: string[], values: string[]) {
+    var url;
+    if (properties.length > 0) {
+      url = `${apiUrl}?`;
+      for (let i = 0; i < properties.length; i++) {
+        url += properties[i] + "=" + values[i];
+        i + 1 != properties.length ? url += "&" : null;
+      }
+      return this.http.get(url);
+    }
+
+    url = `${apiUrl}`;
+    return this.http.get(url);
+  }
+
   handleError(error: any) {
     console.error('An error occurred', error);
     return error.message || error;

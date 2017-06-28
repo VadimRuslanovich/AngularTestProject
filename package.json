@@ -2,10 +2,12 @@
   "name": "AngularTestProject",
   "version": "0.0.1",
   "scripts": {
-    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
+    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" \"npm run watch:sass\" ",
     "lite": "lite-server",
     "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "tsc:w": "tsc -w",
+    "build:sass": "node-sass app/styles/sass/ -o  app/styles/css",
+    "watch:sass": "npm run build:sass && node-sass app/styles/sass/ -wo app/styles/css/"
   },
   "dependencies": {
     "@angular/common": "~4.0.0",
@@ -18,9 +20,12 @@
     "@angular/router": "~4.0.0",
     "angular-in-memory-web-api": "~0.3.0",
     "core-js": "^2.4.1",
-    //"ng2-pagination": "^2.0.2",
+    "node-sass": "^4.5.3",
+    "raw-loader": "^0.5.1",
     "rxjs": "5.0.1",
+    "sass-loader": "^6.0.6",
     "systemjs": "0.19.40",
+    "underscore": "1.8.3",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
