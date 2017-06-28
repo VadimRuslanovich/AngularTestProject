@@ -1,0 +1,29 @@
+<div *ngIf="book">
+    <h2>{{book.title}} details!</h2>
+    <div>
+        <label>Title: </label>
+        <input [(ngModel)]="book.title" />
+    </div>
+    <div>
+        <label>Author: </label>
+        <input [(ngModel)]="book.author" />
+    </div>
+    <div>
+        <label>Date: </label>
+        <input [(ngModel)]="book.date" />
+    </div>
+    <div>
+        <label>Description: </label>
+        <input [(ngModel)]="book.description" />
+    </div>
+    <div>
+        <label>Issued: </label>
+        <input type="checkbox" [(ngModel)]="book.issued" />
+    </div>
+    <div>
+        <label>Region: </label>
+        <input [(ngModel)]="book.region" />
+    </div>
+    <button (click)="goBack()">Back</button>
+    <button (click)="save()">Save</button>
+</div>
