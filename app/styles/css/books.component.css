@@ -47,6 +47,7 @@
 
 .filter {
   float: right; }
-
-.filter .form-group {
-  display: inline-block; }
+  .filter .form-group {
+    display: inline-block; }
+    .filter .form-group [type="date"] {
+      line-height: 20px; }
