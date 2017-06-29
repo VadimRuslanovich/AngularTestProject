@@ -23,7 +23,10 @@ export class BooksComponent implements OnInit {
     error: string = "";
 
     pager: any = {};
+    currentPage: number = 1;
     totalItems: number;
+
+    tempChecker: string = "all";
 
     constructor(private router:Router,
                 private route: ActivatedRoute,
@@ -35,24 +38,32 @@ export class BooksComponent implements OnInit {
         this.getBooks();
     }
 
-    getAllBooks():void {
-        this.bookService.getBooks()
-            .subscribe((data:Response) => {
-                this.books = data.json();
-                this.setPage(1);
-            },
-                error => this.error = this.bookService.handleError(error));
+    check(params:Params) {
+        if (params["title"] || params["author"] || params["date"]) {
+            this.currentPage = +params["page"];
+            return this.filterBooks({
+                    title: params["title"] || "",
+                    author: params["author"] || "",
+                    date: params["date"] || ""
+                },
+                (+params["page"] || 1) * pageSize - pageSize,
+                pageSize);
+        } else {
+            this.currentPage = +params["page"];
+            return this.bookService.sliceBooks((+params["page"] || 1) * pageSize - pageSize, pageSize);
+        }
     }
 
     getBooks():void {
         this.route.params
-            .switchMap((params:Params) => this.bookService.sliceBooks((+params['page'] || 1)*pageSize-pageSize, pageSize))
+            .switchMap((params:Params) => this.check(params))
             .subscribe((data:Response) => {
                     this.books = data.json();
                     this.totalItems = +data.headers.get('x-total-count');
-                    this.books.length > 0 ? this.setPage(1) : this.setPage(0);
+                    this.books.length > 0 ? this.setPage(this.currentPage) : this.setPage(0);
                 },
                 error => this.error = this.bookService.handleError(error));
+
     }
     
     setPage(page: number = 1): void {
@@ -65,20 +76,6 @@ export class BooksComponent implements OnInit {
             return;
         }
         this.error = "";
-    }
-
-    add(form:NgForm): void {
-        let book = new Book(form.controls['title'].value, form.controls['author'].value, form.controls['date'].value,
-            form.controls['description'].value, form.controls['issued'].value,
-            form.controls.hasOwnProperty('region_one') ? form.controls['region_one'].value
-                : form.controls.hasOwnProperty('region_two_1') && form.controls.hasOwnProperty('region_two_2')
-                ? (`${form.controls['region_two_1'].value} ${form.controls['region_two_2'].value}`) : "");
-        this.bookService.createBook(book)
-            .subscribe(res => {
-                this.books.push(res.json() as Book);
-                this.selectedBook = null;
-                this.setPage(this.pager.currentPage);
-            }, error => this.error = this.bookService.handleError(error));
     }
 
     delete(book:Book): void {
@@ -95,21 +92,22 @@ export class BooksComponent implements OnInit {
         }
     }
 
-    filterBooks(filter: NgForm): void {
-        let properties: string[] = [], values: string[] = [];
-        Object.keys(filter.controls).forEach(key => {
-            if(filter.controls[key].value != null && filter.controls[key].value != '') {
-                values.push(filter.controls[key].value);
-                properties.push(key);
-            }
-        });
-        this.bookService.filterBooks(properties, values)
-            .subscribe((data:Response) => {
-                this.books = data.json();
-                this.totalItems = +data.headers.get('x-total-count');
-                this.setPage(1);
-            },
-                error => this.error = this.bookService.handleError(error));
+    filterBooks(filter: any, start: number, limit: number) {
+        let properties:string[] = [], values:string[] = [];
+        if (filter.title != null && filter.title != "" && filter.title != this.tempChecker) {
+            properties.push("title");
+            values.push(filter.title);
+        }
+        if (filter.author != null && filter.author != "" && filter.author != this.tempChecker) {
+            properties.push("author");
+            values.push(filter.author);
+        }
+        if (filter.date != null && filter.date != "" && filter.date != this.tempChecker) {
+            properties.push("date");
+            values.push(filter.date);
+        }
+    
+        return this.bookService.filterBooks(properties, values, start, limit);
     }
 
     onSelect(book: Book): void {
@@ -117,6 +115,6 @@ export class BooksComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(['/details', this.selectedBook.id]);
+        this.router.navigate(['details', this.selectedBook.id]);
     }
 }

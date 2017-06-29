@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class PagerService {
-    getPager(totalItems: number, currentPage: number = 1, pageSize: number = 3) {
+    getPager(totalItems: number, pgnUrl: string = "books", currentPage: number = 1, pageSize: number = 3) {
         let totalPages = Math.ceil(totalItems / pageSize);
 
         let startPage: number, endPage: number;
@@ -40,7 +40,8 @@ export class PagerService {
             endPage: endPage,
             startIndex: startIndex,
             endIndex: endIndex,
-            pages: pages
+            pages: pages,
+            pgnUrl: pgnUrl
         };
     }
 }

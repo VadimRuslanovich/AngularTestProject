@@ -50,9 +50,10 @@ export class BookService {
       url = `${apiUrl}?`;
       for (let i = 0; i < properties.length; i++) {
         url += properties[i] + "=" + values[i];
-        i + 1 != properties.length ? url += "&" : null;
+        (i + 1) != properties.length ? url += "&" : null;
       }
-      return this.http.get(`${url}&_start=${start}&_limit=${limit}`);
+      url = `${url}&_start=${start}&_limit=${limit}`
+      return this.http.get(url);
     }
 
     url = `${apiUrl}?_start=${start}&_limit=${limit}`;
@@ -61,6 +62,6 @@ export class BookService {
 
   handleError(error: any) {
     console.error('An error occurred', error);
-    return error._body.toString() || error.statusText.toString();
+    return error.status || error.statusText;
   }
 }

@@ -73,13 +73,31 @@
       "id": 18
     },
     {
-      "title": "dfgdfg",
-      "author": "Ivanov",
-      "date": "2017-06-11",
-      "description": null,
-      "issued": null,
+      "title": "Js",
+      "author": "fgdhdgf",
+      "date": "1900-02-02",
+      "description": "",
+      "issued": true,
       "region": "",
       "id": 19
+    },
+    {
+      "title": "Js",
+      "author": "ftudfh",
+      "date": "1932-01-01",
+      "description": "",
+      "issued": "",
+      "region": "",
+      "id": 20
+    },
+    {
+      "title": "Js",
+      "author": "fdghgf",
+      "date": "2005-01-01",
+      "description": "",
+      "issued": true,
+      "region": "",
+      "id": 21
     }
   ]
 }
