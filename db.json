@@ -71,6 +71,15 @@
       "issued": null,
       "region": 0,
       "id": 18
+    },
+    {
+      "title": "dfgdfg",
+      "author": "Ivanov",
+      "date": "2017-06-11",
+      "description": null,
+      "issued": null,
+      "region": "",
+      "id": 19
     }
   ]
 }

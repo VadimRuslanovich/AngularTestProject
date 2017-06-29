@@ -3,12 +3,12 @@ import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
-import { Book }        from './book';
-import { BookService } from './book.service';
+import { Book }        from './../book';
+import { BookService } from './../services/book.service';
 
 @Component({
     selector: 'book-details',
-    templateUrl: './app/book-details.component.html',
+    templateUrl: './app/views/book-details.component.html',
     styleUrls: ['./app/styles/css/book-details.component.css']
 })
 

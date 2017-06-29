@@ -9,8 +9,8 @@ import { Component } from '@angular/core';
           <a class="navbar-brand" routeLink="/">{{title}}</a>
         </div>
         <ul class="nav navbar-nav">
-          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="">Home</a></li>
-          <li routerLinkActive="active"><a routerLink="books">Books</a></li>
+          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/">Home</a></li>
+          <li routerLinkActive="active"><a routerLink="/books">Books</a></li>
         </ul>
       </div>
     </nav>

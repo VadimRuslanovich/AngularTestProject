@@ -2,12 +2,10 @@
   "name": "AngularTestProject",
   "version": "0.0.1",
   "scripts": {
-    "start": "concurrent \"npm run tsc:w\" \"npm run lite\" \"npm run watch:sass\" ",
+    "start": "concurrent \"npm run tsc:w\" \"npm run lite\"",
     "lite": "lite-server",
     "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "build:sass": "node-sass app/styles/sass/ -o  app/styles/css",
-    "watch:sass": "npm run build:sass && node-sass app/styles/sass/ -wo app/styles/css/"
+    "tsc:w": "tsc -w"
   },
   "dependencies": {
     "@angular/common": "~4.0.0",

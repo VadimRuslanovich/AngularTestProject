@@ -1,8 +1,10 @@
+import { Injectable } from '@angular/core';
+
+@Injectable()
 export class PagerService {
     getPager(totalItems: number, currentPage: number = 1, pageSize: number = 3) {
         let totalPages = Math.ceil(totalItems / pageSize);
-        if(currentPage > totalPages)
-            currentPage = totalPages;
+
         let startPage: number, endPage: number;
         if (totalPages <= 10) {
             startPage = 1;
@@ -22,8 +24,8 @@ export class PagerService {
 
         let startIndex = (currentPage - 1) * pageSize;
         let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
-
-        var pages: number[] = [];
+        
+        let pages: number[] = [];
         for(let i = 1; i <= totalPages; i++ )
         {
             pages.push(i);

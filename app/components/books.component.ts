@@ -3,24 +3,27 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Response } from "@angular/http";
 import { NgForm, FormControl } from '@angular/forms';
 
-import { PagerService } from './pager.service'
+import { PagerService } from './../services/pager.service'
 
-import { Book } from './book';
-import { BookService } from './book.service';
+import { Book } from './../book';
+import { BookService } from './../services/book.service';
+
+const pageSize = 3;
 
 @Component({
   selector: 'my-books',
-  templateUrl: './app//books.component.html',
+  templateUrl: './app/views/books.component.html',
   styleUrls: [ './app/styles/css/books.component.css' ]
 })
 export class BooksComponent implements OnInit {
     books:Book[] = [];
     selectedBook:Book;
     dateNow = new Date();
-    selectedRegion:number = 2;
+
+    error: string = "";
 
     pager: any = {};
-    pagedItems: Book[];
+    totalItems: number;
 
     constructor(private router:Router,
                 private route: ActivatedRoute,
@@ -32,29 +35,39 @@ export class BooksComponent implements OnInit {
         this.getBooks();
     }
 
-    getBooks():void {
+    getAllBooks():void {
         this.bookService.getBooks()
             .subscribe((data:Response) => {
                 this.books = data.json();
                 this.setPage(1);
-            });
+            },
+                error => this.error = this.bookService.handleError(error));
     }
 
-    setPage(page: number) {
+    getBooks():void {
+        this.route.params
+            .switchMap((params:Params) => this.bookService.sliceBooks((+params['page'] || 1)*pageSize-pageSize, pageSize))
+            .subscribe((data:Response) => {
+                    this.books = data.json();
+                    this.totalItems = +data.headers.get('x-total-count');
+                    this.books.length > 0 ? this.setPage(1) : this.setPage(0);
+                },
+                error => this.error = this.bookService.handleError(error));
+    }
+    
+    setPage(page: number = 1): void {
         if (page < 1) {
             return;
         }
-        this.pager = this.pagerService.getPager(this.books.length, page);
-        this.pagedItems = this.books.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        this.pager = this.pagerService.getPager(this.totalItems, page);
+        if(this.books.length <= 0) {
+            this.error = "Nothing found";
+            return;
+        }
+        this.error = "";
     }
 
-    /*getBooks():void {
-        this.route.params
-            .switchMap((params: Params) => this.bookService.getBooksWithPagination(+params['page'] || 1, 5))
-            .subscribe((data:Response) => this.books = data.json());
-    }*/
-
-    add(form:NgForm) {
+    add(form:NgForm): void {
         let book = new Book(form.controls['title'].value, form.controls['author'].value, form.controls['date'].value,
             form.controls['description'].value, form.controls['issued'].value,
             form.controls.hasOwnProperty('region_one') ? form.controls['region_one'].value
@@ -65,10 +78,10 @@ export class BooksComponent implements OnInit {
                 this.books.push(res.json() as Book);
                 this.selectedBook = null;
                 this.setPage(this.pager.currentPage);
-            }, error => this.bookService.handleError(error));
+            }, error => this.error = this.bookService.handleError(error));
     }
 
-    delete(book:Book) {
+    delete(book:Book): void {
         var confirmation = confirm("Really delete?");
         if (confirmation) {
             this.bookService.deleteBook(book.id)
@@ -78,11 +91,11 @@ export class BooksComponent implements OnInit {
                     if (this.selectedBook === book) {
                         this.selectedBook = null;
                     }
-                }, error => this.bookService.handleError(error));
+                }, error => this.error = this.bookService.handleError(error));
         }
     }
 
-    filterBooks(filter: NgForm){
+    filterBooks(filter: NgForm): void {
         let properties: string[] = [], values: string[] = [];
         Object.keys(filter.controls).forEach(key => {
             if(filter.controls[key].value != null && filter.controls[key].value != '') {
@@ -93,8 +106,10 @@ export class BooksComponent implements OnInit {
         this.bookService.filterBooks(properties, values)
             .subscribe((data:Response) => {
                 this.books = data.json();
+                this.totalItems = +data.headers.get('x-total-count');
                 this.setPage(1);
-            });
+            },
+                error => this.error = this.bookService.handleError(error));
     }
 
     onSelect(book: Book): void {
