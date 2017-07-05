@@ -1,0 +1,76 @@
+<div class="container">
+  <h4>New Book</h4>
+
+  <form #myForm="ngForm" novalidate>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input class="form-control" id="title" name="title" ngModel #title required/>
+      <div [hidden]="!myForm.submitted  || myForm.controls.title.valid" class="alert alert-danger">
+        Title is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <input class="form-control" id="author" name="author" ngModel #author required/>
+      <div [hidden]="!myForm.submitted  || myForm.controls.author.valid" class="alert alert-danger">
+        Author is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <input type="date" class="form-control" value="{{ dateNow | date: 'yyyy-MM-dd'}}"
+             max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" id="date" name="date" ngModel #date required/>
+      <div [hidden]="!myForm.submitted  || myForm.controls.date.valid" class="alert alert-danger">
+        Date is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" ngModel #description></textarea>
+    </div>
+    <div class="form-group">
+      <label for="issued">Issued:</label>
+      <input type="checkbox" id="issued" name="issued" ngModel #issued />
+    </div>
+    <div class="form-group">
+      <label>Region:</label>
+      <select class="selectpicer" [(ngModel)]="selectedRegion" name="Select Region">
+        <option [ngValue]="1" [selected]="selectedRegion == 1">us</option>
+        <option [ngValue]="2" [selected]="selectedRegion == 2">eu</option>
+      </select>
+      <div *ngIf="selectedRegion == 1; then one_field else two_fields"></div>
+      <ng-template #one_field>
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label">code: </label>
+          <div class="col-sm-11">
+            <input class="form-control" name="region_one" ngModel #region_one required/>
+            <div [hidden]="!myForm.submitted  || myForm.controls.region_one.valid" class="alert alert-danger">
+              Code is required
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #two_fields>
+        <div class="form-group row" *ngIf="selectedRegion == 2">
+            <label class="col-sm-1 col-form-label">code1: </label>
+            <div class="col-sm-5">
+              <input class="form-control" name="region_two_1" ngModel #region_two_1 required/>
+              <div [hidden]="!myForm.submitted  || myForm.controls.region_two_1.valid" class="alert alert-danger">
+                Code1 is required
+              </div>
+            </div>
+            <label class="col-sm-1 col-form-label">code2: </label>
+            <div class="col-sm-5">
+              <input class="form-control" name="region_two_2" ngModel #region_two_2 required/>
+              <div [hidden]="!myForm.submitted  || myForm.controls.region_two_2.valid" class="alert alert-danger">
+                Code2 is required
+              </div>
+            </div>
+        </div>
+      </ng-template>
+    </div>
+    <button class="btn btn-primary" (click)="add(myForm);" data-dismiss="modal">
+      Add
+    </button>
+  </form>
+</div>

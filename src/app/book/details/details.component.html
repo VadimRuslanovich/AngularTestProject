@@ -1,0 +1,43 @@
+<div class="container" *ngIf="book">
+  <form #formEdit="ngForm" novalidate>
+    <h2>{{book.title}} details!</h2>
+    <div class="form-group">
+      <label>Title: </label>
+      <input class="form-control" [(ngModel)]="book.title" name="title" required/>
+      <div [hidden]="!formEdit.submitted  || formEdit.controls.title.valid" class="alert alert-danger">
+        Title is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Author: </label>
+      <input class="form-control" [(ngModel)]="book.author" name="author" required/>
+      <div [hidden]="!formEdit.submitted  || formEdit.controls.author.valid" class="alert alert-danger">
+        Author is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Date: </label>
+      <input class="form-control" type="date" max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="date" [(ngModel)]="book.date" required/>
+      <div [hidden]="!formEdit.submitted  || formEdit.controls.date.valid" class="alert alert-danger">
+        Date is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description: </label>
+      <textarea class="form-control" [(ngModel)]="book.description" name="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Issued: </label>
+      <input type="checkbox" [(ngModel)]="book.issued" name="issued" />
+    </div>
+    <div class="form-group">
+      <label>Region: </label>
+      <input class="form-control" [(ngModel)]="book.region" name="region" required/>
+      <div [hidden]="!formEdit.submitted  || formEdit.controls.region.valid" class="alert alert-danger">
+        Region is required
+      </div>
+    </div>
+    <button (click)="goBack()">Back</button>
+    <button type="submit" (click)="save(formEdit)">Save</button>
+  </form>
+</div>
