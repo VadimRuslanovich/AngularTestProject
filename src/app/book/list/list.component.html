@@ -18,7 +18,7 @@
             <label>Date:</label>
             <input type="date" max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="dateFilter" ngModel #dateFilter/>
           </div>
-          <button class="btn btn-primary" routerLink="/books/filter" [queryParams]="{ title: titleFilter.value, author: authorFilter.value, date: dateFilter.value }">
+          <button class="btn btn-primary" routerLink="/books" [queryParams]="{ title: titleFilter.value, author: authorFilter.value, date: dateFilter.value }">
             Filter
           </button>
         </form>
@@ -32,7 +32,7 @@
           <option [ngValue]="'author'">Author</option>
           <option [ngValue]="'date'">Date</option>
         </select>
-        <button class="btn btn-primary" routerLink="/books/sort" [queryParams]="{ sort: sort, order: 'asc' }">
+        <button class="btn btn-primary" routerLink="/books" [queryParams]="{ sort: sort, order: 'asc' }">
           Sort
         </button>
       </div>
@@ -52,11 +52,11 @@
       <th>Actions</th>
     </tr>
     </thead>
-    <tbody>
-    <div *ngIf="error != null && error != ''; else booksTable">
+    <div *ngIf="error && error != null && error != ''; else booksTable">
       <tr colspan="8">{{error}}</tr>
     </div>
     <ng-template #booksTable>
+    <tbody>
       <tr *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)" (dblclick)="gotoDetail()">
         <td>{{book.id}}</td>
         <td>{{book.title}}</td>
@@ -67,29 +67,29 @@
         <td>{{book.region}}</td>
         <td><button class="delete" (click)="delete(book); $event.stopPropagation()">x</button></td>
       </tr>
-    </ng-template>
     </tbody>
     <tfoot>
     <th colspan="8">
       <!-- pager -->
       <ul *ngIf="pager.pages && pager.pages.length > 1" class="pagination">
         <li [ngClass]="{disabled:pager.currentPage === 1}">
-          <a routerLink="/books" [queryParams]="{ page: 1 }">First</a>
+          <a routerLink="/books" [queryParams]="{ page: 1 }" queryParamsHandling="merge">First</a>
         </li>
         <li [ngClass]="{disabled:pager.currentPage === 1}">
-          <a routerLink="/books" [queryParams]="{ page: pager.currentPage - 1 }">Previous</a>
+          <a routerLink="/books" [queryParams]="{ page: pager.currentPage - 1 }" queryParamsHandling="merge">Previous</a>
         </li>
         <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-          <a routerLink="/books" [queryParams]="{ page: page }">{{page}}</a>
+          <a routerLink="/books" [queryParams]="{ page: page }" queryParamsHandling="merge">{{page}}</a>
         </li>
         <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a routerLink="/books" [queryParams]="{ page: pager.currentPage + 1 }">Next</a>
+          <a routerLink="/books" [queryParams]="{ page: pager.currentPage + 1 }" queryParamsHandling="merge">Next</a>
         </li>
         <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a routerLink="/books" [queryParams]="{ page: pager.totalPages }">Last</a>
+          <a routerLink="/books" [queryParams]="{ page: pager.totalPages }" queryParamsHandling="merge">Last</a>
         </li>
       </ul>
     </th>
     </tfoot>
+    </ng-template>
   </table>
 </div>

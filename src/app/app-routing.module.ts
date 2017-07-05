@@ -11,8 +11,6 @@ const routes: Routes = [
   { path: 'books', children: [
     { path: '', component: ListComponent },
     { path: 'create', component: CreateComponent },
-    { path: 'filter', component: ListComponent },
-    { path: 'sort', component: ListComponent },
     { path: ':id', component: DetailsComponent, resolve:{ book: BookDataResolveService } }
   ] },
 ];

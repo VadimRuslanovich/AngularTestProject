@@ -8,7 +8,7 @@ import { PagerService } from '../pager.service'
 import { Book } from '../book';
 import { BookService } from '../book.service';
 
-const pageSize = 5;
+const pageSize = 3;
 
 @Component({
   selector: 'app-list',
